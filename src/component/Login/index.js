@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Link} from "react-router-dom";
+// import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import axios from "axios";
+import {useHistory} from "react-router-dom"
 
-const LoginArea = () => {
+ export default  function LoginArea() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  let dispatch = useDispatch();
   const history = useHistory();
 
-  let status = useSelector((state) => state.user.status);
-  let user = useSelector((state) => state.user.user);
+  // let dispatch = useDispatch();
+  // const history = useHistory();
+
+  // let status = useSelector((state) => state.user.status);
+  // let user = useSelector((state) => state.user.user);
 
   // Login
   const login = async () => {
@@ -25,14 +27,15 @@ const LoginArea = () => {
       "http://localhost:5000/users/userLogin",
       body
     );
-    if (result.status) {
-      alert(result.status);
+    if (result.data.status) {
       Swal.fire({
         icon: "success",
         title: "Login Sucessfull",
         text: "Welcome ",
       });
+      history.push(`/`)
 
+      // navigate(`/`)
     } else {
       Swal.fire({
         icon: "error",
@@ -145,5 +148,3 @@ const LoginArea = () => {
     </>
   );
 };
-
-export default LoginArea;
