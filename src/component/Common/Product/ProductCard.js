@@ -27,7 +27,7 @@ const ProductCard = (props) => {
         var body = {};
         var result = await post("master/productList", body);
         setData(result.data);
-        // alert(JSON.stringify(result.data));
+        // console.log(typeof(result.data));
     };
     
 
@@ -44,11 +44,14 @@ const ProductCard = (props) => {
               to={`/product-details-one/${props.data.id}`}
               className="image"
             >
+              {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
               {data.map((item) => {
                 return (
                   <>
                     {/* {JSON.parse(item.image).map((item) => item)} */}
-                    <img src={`${API_URL}/images/${JSON.parse(item.image)}`}/>
+                    {/* {alert(JSON.parse(item.image).map((item)=>item[0]))} */}
+                    <img src={`${API_URL}/images/${JSON.parse(item.image)}`} />
+                    
                   </>
                 );
               })}
@@ -105,11 +108,11 @@ const ProductCard = (props) => {
           <div className="content">
             <h5 className="title">
               <Link to={`/product-details-one/${props.data.id}`}>
-                {props.data.title}
+                {data.map((item)=>item.name)}
               </Link>
             </h5>
             <span className="price">
-              <span className="new">${props.data.price}.00</span>
+              <span className="new">&#8377;{data.map((item)=>item.mrp)}.00</span>
             </span>
           </div>
         </div>

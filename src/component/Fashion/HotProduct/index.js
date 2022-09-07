@@ -29,16 +29,17 @@ const HotProduct = () => {
                         <div className="tab-content">
                           <div id="new_arrival" className="tab-pane fade show in active">
                               <div className="row">
-                                {products.slice(0, 8).map((data, index) =>(
-                                    <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
-                                            <ProductCard data={data} />
+                                {products.slice(0, 3).map((data, index) =>(
+                                    <div className="col-lg-4 col-md-4 col-sm-6 col-12" key={index}>
+                                        <ProductCard data={data} />
+                                        
                                     </div>
                                 ))}
                               </div>
                           </div>
                           <div id="trending" className="tab-pane fade">
                           <div className="row"> 
-                                {products.slice(0, 5).map((data, index) =>(
+                                {products.slice(0, 1).map((data, index) =>(
                                      <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
                                      <ProductCard data={data} />
                              </div>

@@ -1,4 +1,30 @@
-import React from 'react'
+import React from 'react';
+
+// function loadScript(src) {
+//   return new Promise((resolve) => {
+//     const script = document.createElement("script");
+//     script.src = src;
+//     script.onload = () => {
+//       resolve(true);
+//     };
+//     script.onerror = () => {
+//       resolve(false);
+//     };
+//     document.body.appendChild(script);
+//   });
+// }
+
+const handlePayment = async () => {
+    alert("payment")
+    // const res = await loadScript(
+    //   "https://checkout.razorpay.com/v1/checkout.js"
+    // );
+
+    // if (!res) {
+    //   alert("Razorpay SDK failed to load...");
+    //   return;
+    // }
+}
 const Payment = () => {
     return (
         <>
@@ -51,10 +77,10 @@ const Payment = () => {
                         </div>
                     </form>
                 </div>
-                <button className="theme-btn-one btn-black-overlay btn_sm">Place Order</button>
+                <button className="theme-btn-one btn-black-overlay btn_sm" onClick={handlePayment}>Place Order</button>
             </div>
         </>
     )
 }
 
-export default Payment
+export default Payment;
