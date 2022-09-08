@@ -23,8 +23,8 @@ const Header = () => {
 
   const [proData, setProData] = useState([]);
   const productList = async () => {
-    var body = {};
-    var result = await post("master/productList", body);
+    var params = {};
+    var result = await post("master/productList", params);
     setProData(result.data);
     // console.log(typeof(result.data));
   };
@@ -39,7 +39,7 @@ const Header = () => {
     // }
     // return subtotal
     // {proData.map((item)=>item.mrp)}
-    return proData.map((item) => item.mrp);
+    return proData.map((item) => item.sales_price);
   };
 
   const rmCartProduct = (id) => {
@@ -657,7 +657,7 @@ const Header = () => {
                       </span>
                       <span className="offcanvas-wishlist-item-details-price">
                         {" "}
-                        {proData.map((item) => item.mrp)}
+                        {proData.map((item) => item.sales_price)}
                       </span>
                     </div>
                   </div>

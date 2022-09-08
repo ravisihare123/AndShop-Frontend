@@ -112,7 +112,7 @@ const ProductCard = (props) => {
               </Link>
             </h5>
             <span className="price">
-              <span className="new">&#8377;{data.map((item)=>item.mrp)}.00</span>
+              <span className="new">&#8377;{data.map((item)=>item.sales_price)}.00</span>
             </span>
           </div>
         </div>
