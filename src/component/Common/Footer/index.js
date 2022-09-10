@@ -7,6 +7,8 @@ import NewsletterModal from '../NewsletterModal'
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import Swal from 'sweetalert2'
+import { useState } from 'react'
+import { post } from '../../../helper/api'
 
 const FooterData = [
     {
@@ -34,6 +36,9 @@ const FooterData = [
 ]
 
 const Footer = () => {
+    const [email, setEmail] = useState("")
+
+
     let dispatch = useDispatch();
 
     let promoCenter = useSelector((state) => state.settings.promoCenter);
@@ -41,6 +46,14 @@ const Footer = () => {
     let stopPromo = useSelector((state) => state.settings.stopPromo);
     let cookie = useSelector((state) => state.settings.cookie);
     let stopCookie = useSelector((state) => state.settings.stopCookie);
+
+    const handleSubmit = async() => {
+        const body = {
+            email: email
+        }
+        var result = await post("email/mailSend", body);
+        setEmail(result.data)
+    }
 
     useEffect(() => {
         if (promoStatus) {
@@ -150,9 +163,15 @@ const Footer = () => {
                             <div className="footer_one_widget">
                                 <h3>NEWSLETTER</h3>
                                 <div id="mc_embed_signup" className="subscribe-form">
-                                    <form onSubmit={(e) => { e.preventDefault(); Swal.fire('Success', 'Thank you for your Subscribtion', 'success'); document.querySelector("input[type='email']").value = "" }}>
+                                    <form onSubmit={(e) => {
+                                        e.preventDefault();
+                                        handleSubmit();
+                                        Swal.fire('Success', 'Thank you for your Subscribtion', 'success'); document.querySelector("input[type='email']").value = ""
+                                    }}>
                                         <div className="mc-form">
-                                            <input className="form-control" type="email" placeholder="Your Mail" name="EMAIL" defaultValue="" required />
+                                            <input className="form-control" type="email" placeholder="Your Mail" onChange={(e) => {
+                                                setEmail(e.target.value)
+                                            }} name="EMAIL" defaultValue="" required />
                                             <div className="clear">
                                                 <button className="theme-btn-one btn_md" type="submit" name="subscribe" defaultValue=""> Send Mail</button>
                                             </div>

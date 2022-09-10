@@ -17,7 +17,7 @@ const Payment = () => {
 
   useEffect(() => {
     productList();
-  }, []);
+  },[])
     
   const cartTotal = () => {
     return carts.reduce(function (total, item) {
@@ -32,6 +32,7 @@ const Payment = () => {
       "http://localhost:5000/payment/addmoney",
       body
     );
+    //  axios.post("http://localhost/5000/payment/verifyPayment", body);
 
     // console.log(res)
     const { order } = res.data;
@@ -57,6 +58,7 @@ const Payment = () => {
         color: "#3399cc",
       },
     };
+
     var rzp1 = new window.Razorpay(options);
     rzp1.on("payment.failed", function (response) {
       alert(response.error.code);
