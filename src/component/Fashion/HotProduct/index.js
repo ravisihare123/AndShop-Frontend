@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const HotProduct = () => { 
 
     let products = useSelector((state) => state.products.products);
+    // alert(JSON.stringify(products))
     
     return (
         <>

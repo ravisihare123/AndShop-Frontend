@@ -1,6 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { post } from '../../helper/api';
 
 const YourOrders = () => {
+    const [data, setData] = useState([])
+  let carts = useSelector((state) => state.products.carts);
+
+    
+const productList = async () => {
+  var body = {};
+  var result = await post("master/productList", body);
+  setData(result.data);
+  // console.log(typeof(result.data));
+    };
+    
+    const cartTotal = () => {
+      return carts.reduce(function (total, item) {
+        return (
+          total +
+          (item.quantity || 1) * data.map((item) => item.sales_price )
+        );
+      }, 0);
+    };
+
+
+useEffect(() => {
+  productList();
+}, []);
+
     return (
         <>
             <div className="order_review  box-shadow bg-white">
@@ -17,25 +44,16 @@ const YourOrders = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Blue Dress For Woman <span className="product-qty">x 2</span>
+                                <td>{data.map((item)=>item.name)}
                                 </td>
-                                <td>$90.00</td>
+                                <td>{ data.map((item)=>item.sales_price)}</td>
                             </tr>
-                            <tr>
-                                <td>Lether Gray Tuxedo <span className="product-qty">x 1</span>
-                                </td>
-                                <td>$55.00</td>
-                            </tr>
-                            <tr>
-                                <td>Woman Full Sliv Dresss <span className="product-qty">x 3</span>
-                                </td>
-                                <td>$204.00</td>
-                            </tr>
+                           
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>SubTotal</th>
-                                <td className="product-subtotal">$349.00</td>
+                                <td className="product-subtotal">{cartTotal()}</td>
                             </tr>
                             <tr>
                                 <th>Shipping</th>
@@ -43,7 +61,7 @@ const YourOrders = () => {
                             </tr>
                             <tr>
                                 <th>Total</th>
-                                <td className="product-subtotal">$349.00</td>
+                                <td className="product-subtotal">{cartTotal()}</td>
                             </tr>
                         </tfoot>
                     </table>

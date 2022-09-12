@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 const NewsletterModal = (props) => {
     return (
         <>
-            <Modal show={props.show}
+            <Modal show={false}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter" centered >
                 <Modal.Body className="newsleetre_modal">
