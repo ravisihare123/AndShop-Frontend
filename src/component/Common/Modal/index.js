@@ -50,8 +50,8 @@ const MyVerticallyCenteredModal = (props) => {
                                         <div className="modal_product_content_one">
                                             <h3>{props.data.title}</h3>
                                             <div className="reviews_rating">
-                                                <RatingStar maxScore={5} rating={props.data.rating.rate} id="rating-star-modal" />
-                                                <span>({props.data.rating.count} Customer Reviews)</span>
+                                                <RatingStar maxScore={5} rating={props?.data?.rating?.rate} id="rating-star-modal" />
+                                                <span>({props?.data?.rating?.count} Customer Reviews)</span>
                                             </div>
                                             <h4>${props.data.price}.00 <del style={{fontWeight: 400, color: 'gray'}}>${parseInt(props.data.price) + 17}.00</del> </h4>
                                             <p>{props.data.description}</p>

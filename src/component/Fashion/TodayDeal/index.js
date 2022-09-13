@@ -52,7 +52,7 @@ const TodayDeal = () => {
                 <div className="col-lg-12">
                     <div className="todays_slider">
                     <Slider {...settings}>
-                    {products.slice(6, 13).map((data, index) =>(
+                    {products?.slice(6, 13).map((data, index) =>(
                           <ProductCard data={data} key={index}/>
                      ))}
                   </Slider>

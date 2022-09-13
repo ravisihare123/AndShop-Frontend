@@ -8,7 +8,11 @@ import MyVerticallyCenteredModal from '../../Common/Modal';
 import { API_URL, post } from '../../../helper/api';
 
 const ProductCard = (props) => {
-    let dispatch = useDispatch();
+  let dispatch = useDispatch();
+
+  
+  // images
+
     // Add to cart
     const addToCart = async (id) => {
         dispatch({ type: "products/addToCart", payload: { id } })
@@ -22,17 +26,19 @@ const ProductCard = (props) => {
         dispatch({ type: "products/addToComp", payload: { id } })
     }
     const [modalShow, setModalShow] = useState(false);
-    const [data, setData] = useState([]);
+  
     const productList = async () => {
         var body = {};
         var result = await post("master/productList", body);
-        setData(result.data);
-        // alert(JSON.parse(result.data.image.map((item)=>item)));
+        dispatch({ type: "products/getProduct", payload: result.data });
+      
+      ;
     };
     
 
       useEffect(() => {
           productList();
+       
       }, []);
 
    
@@ -44,23 +50,12 @@ const ProductCard = (props) => {
               to={`/product-details-one/${props.data.id}`}
               className="image"
             >
-              {/* {alert(props.data.id)} */}
-              {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-              {/* <img src={props.data?.image?.images[0]} alt="Product" /> */}
-              {data.map((item) => {
-                return (
-                  <>
-                    {/* {JSON.parse(item.image).map((item) => item)}
-                    {alert(JSON.parse(item.image).map((item) => item[0]))} */}
-                    <img src={`${API_URL}/images/${JSON.parse(item.image)}`} alt="Product" />
-                  </>
-                );
-              })}
-              {/* <img
+              {/* {console.log(props.data?.image)} */}
+              <img src={API_URL+"/images/"+props.data?.image?.[0]} alt="Product" />
+              <img
                 className="hover-image"
-                src={props.data?.image?.images[1]}
-                alt="Product"
-              /> */}
+                src={API_URL+"/images/"+props.data?.image?.[1]} alt="Product"
+              />
             </Link>
             <span className="badges">
               <span
@@ -109,12 +104,12 @@ const ProductCard = (props) => {
           <div className="content">
             <h5 className="title">
               <Link to={`/product-details-one/${props.data.id}`}>
-                {data.map((item) => item.name)}
+                {props.data?.name}
               </Link>
             </h5>
             <span className="price">
               <span className="new">
-                &#8377;{data.map((item) => item.sales_price)}.00
+                &#8377;{props.data?.sales_price}.00
               </span>
             </span>
           </div>

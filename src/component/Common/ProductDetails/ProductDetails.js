@@ -36,7 +36,7 @@ const ProductDetailsOne = () => {
 
     const [count, setCount] = useState(1)
 
-    const [img, setImg] = useState(product.img)
+    const [img, setImg] = useState(product)
 
     const incNum = () => {
         setCount(count + 1)
@@ -65,8 +65,8 @@ const ProductDetailsOne = () => {
                                 <div className="modal_product_content_one">
                                     <h3>{product.title}</h3>
                                     <div className="reviews_rating">
-                                        <RatingStar maxScore={5} rating={product.rating.rate} id="rating-star-common" />
-                                        <span>({product.rating.count} Customer Reviews)</span>
+                                        <RatingStar maxScore={5} rating={product.rating?.rate} id="rating-star-common" />
+                                        <span>({product.rating?.count} Customer Reviews)</span>
                                     </div>
                                     <h4>${product.price}.00 <del>${parseInt(product.price) + 17}.00</del> </h4>
                                     <p>{product.description}</p>

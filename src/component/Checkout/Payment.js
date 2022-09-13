@@ -5,23 +5,12 @@ import { useSelector } from "react-redux";
 
 const Payment = () => {
     
-  const [data, setData] = useState([]);
   let carts = useSelector((state) => state.products.carts);
-  const productList = async () => {
-    var body = {};
-    var result = await post("master/productList", body);
-    setData(result.data);
-    // console.log(typeof(result.data));
-    };
-    
-
-  useEffect(() => {
-    productList();
-  },[])
+  
     
   const cartTotal = () => {
     return carts.reduce(function (total, item) {
-      return total + (item.quantity || 1) * data.map((item)=>item.sales_price*100);
+      return total + (item.quantity || 1) * (item.sales_price*100);
     }, 0);
   };
 

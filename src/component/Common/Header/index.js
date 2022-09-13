@@ -13,34 +13,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { API_URL, post } from "../../../helper/api";
 
-const Header = () => {
+const Header = (props) => {
   const [click, setClick] = useState(false);
   const [show, setShow] = useState();
   const history = useHistory();
   let carts = useSelector((state) => state.products.carts);
   let favorites = useSelector((state) => state.products.favorites);
+  // let product = useSelector((state) => state.products.products);
   let dispatch = useDispatch();
+  // alert(JSON.stringify(carts))
 
-  const [proData, setProData] = useState([]);
-  const productList = async () => {
-    var params = {};
-    var result = await post("master/productList", params);
-    setProData(result.data);
-    // console.log(typeof(result.data));
-  };
-
-  useEffect(() => {
-    productList();
-  }, []);
-
-  const subTotal = () => {
-    // for (let i = 0; i <= proData.length; i++){
-    //     var subtotal =+ proData[i];
-    // }
-    // return subtotal
-    // {proData.map((item)=>item.mrp)}
-    return proData.map((item) => item.sales_price);
-  };
 
   const rmCartProduct = (id) => {
     dispatch({ type: "products/removeCart", payload: { id } });
@@ -52,7 +34,7 @@ const Header = () => {
 
   const cartTotal = () => {
     return carts.reduce(function (total, item) {
-      return total + (item.quantity || 1) * subTotal();
+      return total + (item.quantity || 1) * item.sales_price;
     }, 0);
   };
 
@@ -114,19 +96,19 @@ const Header = () => {
 
   // Sticky Menu Area
   useEffect(() => {
-    window.addEventListener("scroll", isSticky);
+    // window.addEventListener("scroll", isSticky);
     return () => {
-      window.removeEventListener("scroll", isSticky);
+      // window.removeEventListener("scroll", isSticky);
     };
   });
 
-  const isSticky = (e) => {
-    const header = document.querySelector(".header-section");
-    const scrollTop = window.scrollY;
-    scrollTop >= 250
-      ? header.classList.add("is-sticky")
-      : header.classList.remove("is-sticky");
-  };
+  // const isSticky = (e) => {
+  //   const header = document.querySelector(".header-section");
+  //   const scrollTop = window.scrollY;
+  //   scrollTop >= 250
+  //     ? header.classList.add("is-sticky")
+  //     : header.classList.remove("is-sticky");
+  // };
 
   return (
     <>
@@ -632,24 +614,16 @@ const Header = () => {
                     to={`/product-details-one/${data.id}`}
                     className="offcanvas-wishlist-item-image-link"
                   >
-                    {proData.map((item) => {
-                      return (
-                        <>
-                          {/* {JSON.parse(item.image).map((item) => item)} */}
-                          {/* {alert(JSON.parse(item.image).map((item)=>item[0]))} */}
-                          <img
-                            src={`${API_URL}/images/${JSON.parse(item.image)}`}
-                          />
-                        </>
-                      );
-                    })}
+                    <img src={`${API_URL}/images/${data.image[0]}`} alt="product"/>
+
+                    
                   </Link>
                   <div className="offcanvas-wishlist-item-content">
                     <Link
                       to={`/product-details-one/${data.id}`}
                       className="offcanvas-wishlist-item-link"
                     >
-                      {proData.map((item) => item.name)}
+                      {data.name}
                     </Link>
                     <div className="offcanvas-wishlist-item-details">
                       <span className="offcanvas-wishlist-item-details-quantity">
@@ -657,7 +631,8 @@ const Header = () => {
                       </span>
                       <span className="offcanvas-wishlist-item-details-price">
                         {" "}
-                        {proData.map((item) => item.sales_price)}
+                        {/* {proData.map((item) => item.sales_price)} */}
+                        {data.sales_price}
                       </span>
                     </div>
                   </div>
