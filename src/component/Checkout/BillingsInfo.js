@@ -20,6 +20,8 @@ const BillingsInfo = () => {
   const [itemPrice, setItemPrice] = useState(
     carts.map((item) => item.sales_price)
   );
+  const [productId, setProductId] = useState(carts.map((item) => item.p_id))
+  // alert(productId)
   // alert(JSON.stringify(itemPrice));
 
   const handleOrder = async (e) => {
@@ -34,8 +36,9 @@ const BillingsInfo = () => {
       zipcode: zipcode,
       address: address,
       message: message,
-      itemname: [itemName],
-      itemprice: [itemPrice],
+      itemname: itemName,
+      itemprice: itemPrice,
+      productid:productId
     };
 
     var result = await post("master/orderDetails", body);
